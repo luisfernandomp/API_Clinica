@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API_Pet.Domains;
+using API_Pet.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,36 +13,44 @@ namespace API_Pet.Controllers
     [ApiController]
     public class RacaController : ControllerBase
     {
+        RacaRepository repo = new RacaRepository();
+
         // GET: api/Raca
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<Raca> Get()
         {
-            return new string[] { "value1", "value2" };
+            return repo.LerTodos();
         }
 
         // GET: api/Raca/5
         [HttpGet("{id}", Name = "GetRaca")]
-        public string Get(int id)
+        public Raca Get(int id)
         {
-            return "value";
+            return repo.BuscarPorId(id);
         }
 
         // POST: api/Raca
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Raca Post([FromBody] Raca r)
         {
+            return repo.Cadastrar(r);
+
         }
 
         // PUT: api/Raca/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public Raca Put(int id, [FromBody] Raca r)
         {
+            return repo.Alterar(r, id);
+
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public string Delete(int id)
         {
+            repo.Excluir(id);
+            return "Excluído com sucesso!";
         }
     }
 }

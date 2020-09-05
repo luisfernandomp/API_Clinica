@@ -10,5 +10,6 @@ namespace API_Pet.Domains
         public int IdRaca { get; set; }
         public string Descricao { get; set; }
         public int IdTipoDePet { get; set; }
+        public string DescricaoTipo { get; set; }
     }
 }
